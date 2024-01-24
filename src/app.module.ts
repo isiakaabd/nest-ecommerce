@@ -3,6 +3,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
+import { AllExceptionFilter } from './httpExceptionFilter';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -17,9 +20,17 @@ import { MongooseModule } from '@nestjs/mongoose';
         uri: configService.get<string>('mongodbUrl'),
       }),
     }),
+    UsersModule,
+    AuthModule,
   ],
 
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: 'APP_FILTER',
+      useClass: AllExceptionFilter,
+    },
+  ],
 })
 export class AppModule {}
