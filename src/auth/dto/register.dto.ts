@@ -11,8 +11,12 @@ export class RegisterDto {
 
   @IsString()
   @IsNotEmpty()
-  @IsIn([UserTypes])
-  type: string;
+  password: string;
+
+  //   @IsString()
+  @IsNotEmpty()
+  @IsIn(Object.values(UserTypes))
+  type: UserTypes;
   @IsString()
   @IsOptional()
   secretToken?: string;
