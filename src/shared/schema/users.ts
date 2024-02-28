@@ -17,7 +17,7 @@ export class Users extends Document {
   @Prop({ required: true, enum: UserTypes })
   type: string;
 
-  @Prop({ default: true })
+  @Prop({ default: false })
   isVerified: boolean;
 
   @Prop({ default: null })

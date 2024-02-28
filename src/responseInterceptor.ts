@@ -18,18 +18,15 @@ export class TransformationInterceptor<T>
     const path = context.switchToHttp().getRequest().url;
 
     return next.handle().pipe(
-      map((data) => {
-        console.log(data);
-        return {
-          message: data.message,
-          success: data.success,
-          result: data.result,
-          timeStamp: new Date(),
-          statusCode,
-          path,
-          error: null,
-        };
-      }),
+      map((data) => ({
+        message: data.message,
+        success: data.success,
+        result: data.result,
+        timeStamp: new Date(),
+        statusCode,
+        path,
+        error: null,
+      })),
     );
   }
 }

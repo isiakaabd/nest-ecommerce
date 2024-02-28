@@ -13,11 +13,10 @@ export class RegisterDto {
   @IsNotEmpty()
   password: string;
 
-  //   @IsString()
   @IsNotEmpty()
   @IsIn(Object.values(UserTypes))
-  type: UserTypes;
-  @IsString()
-  @IsOptional()
+  @IsOptional({ each: true }) // Make the property optional
+  type: UserTypes = UserTypes.User;
+
   secretToken?: string;
 }

@@ -12,4 +12,7 @@ export class UserRepository {
   async create(query: any) {
     return this.userModel.create(query);
   }
+  async updateOne(query: any, data: Record<string, any>) {
+    return await this.userModel.updateOne(query, data);
+  }
 }
