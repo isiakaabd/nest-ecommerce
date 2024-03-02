@@ -33,6 +33,7 @@ export class AuthService {
       const checkPassword = await comparePassword(password, user.password);
       if (!checkPassword) throw new Error(`Incorrect Email/Password`);
       const token = await generateToken(this.jwt, user);
+
       response.cookie('token', token, { httpOnly: true });
 
       return {
@@ -48,7 +49,6 @@ export class AuthService {
         },
       };
     } catch (error) {
-      console.log(error);
       throw Error(error);
     }
   }

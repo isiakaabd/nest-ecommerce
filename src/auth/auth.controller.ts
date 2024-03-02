@@ -16,8 +16,11 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @HttpCode(HttpStatus.OK)
   @Post('/login')
-  async login(@Body() loginDto: LoginDto, @Res() response: Response) {
-    return this.authService.login(loginDto, response);
+  async login(
+    @Body() loginDto: LoginDto,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    return await this.authService.login(loginDto, response);
   }
   @Post('/signup')
   async register(@Body() createAuthDto: RegisterDto) {

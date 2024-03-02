@@ -3,14 +3,14 @@ import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
 import { TransformationInterceptor } from './responseInterceptor';
+import * as cookieParser from 'cookie-parser';
 async function bootstrap() {
   try {
     const app = await NestFactory.create(AppModule);
     const configService = app.get(ConfigService);
-    // const { httpAdapter } = app.get(HttpAdapterHost);
-    // app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
-    // console.log(JSON.stringify(new MongoExceptionFilter()));
 
+    // somewhere in your initialization file
+    app.use(cookieParser());
     app.useGlobalInterceptors(new TransformationInterceptor());
     const port = configService.get<number>('PORT');
     app.useGlobalPipes(
